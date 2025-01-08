@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/Group 1.png";
+import ShopIcon from "../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
 
 export default function NavBar() {
   const NavLinks = (
@@ -8,7 +9,7 @@ export default function NavBar() {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/">CONTACT us</NavLink>
+        <NavLink to="/">CONTACT US</NavLink>
       </li>
       <li>
         <NavLink to="/">DASHBOARD</NavLink>
@@ -26,7 +27,7 @@ export default function NavBar() {
   );
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-black text-white fixed z-10 bg-opacity-30 max-w-screen-xl">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -60,7 +61,13 @@ export default function NavBar() {
           <ul className="menu menu-horizontal px-1 gap-4">{NavLinks}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <img className="w-12" src={ShopIcon} alt="" />
+          <button className="ml-4">SIGN OUT</button>
+          <div className="avatar w-10 ml-2">
+            <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
+              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            </div>
+          </div>
         </div>
       </div>
     </>
