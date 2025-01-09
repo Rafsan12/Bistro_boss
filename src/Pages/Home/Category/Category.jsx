@@ -7,9 +7,14 @@ import SliderImg2 from "../../../assets/home/slide2.jpg";
 import SliderImg3 from "../../../assets/home/slide3.jpg";
 import SliderImg4 from "../../../assets/home/slide4.jpg";
 import SliderImg5 from "../../../assets/home/slide5.jpg";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 export default function Category() {
   return (
     <div className="mb-6">
+      <SectionTitle
+        subHeading={"From 11:00am to 10:00pm"}
+        heading={"ORDER ONLINE"}
+      />
       <Swiper
         slidesPerView={3}
         spaceBetween={1}
