@@ -15,7 +15,7 @@ export default function NavBar() {
         <NavLink to="/">DASHBOARD</NavLink>
       </li>
       <li>
-        <NavLink to="/">Our Menu</NavLink>
+        <NavLink to="/menu">Our Menu</NavLink>
       </li>
       <li>
         <NavLink to="/">Home</NavLink>
