@@ -6,7 +6,7 @@ const UseMenu = () => {
 
   useEffect(() => {
     const fetchMenuData = async () => {
-      const response = await fetch("menu.json");
+      const response = await fetch("http://localhost:5000/menu");
       const result = await response.json();
       setMenu(result);
       setLoading(false);

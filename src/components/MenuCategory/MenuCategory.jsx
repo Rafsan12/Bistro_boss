@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
+import Button from "../Button/Button";
 import Cover from "../Cover/Cover";
 import MenuItem from "../MenuItem/MenuItem";
 
@@ -10,6 +12,11 @@ export default function MenuCategory({ items, bgImg, title, subTitle }) {
         {items.map((item) => (
           <MenuItem key={item._id} item={item} />
         ))}
+      </div>
+      <div className="flex items-center justify-center">
+        <Link to={`/order/${title}`}>
+          <Button name={"ORDER YOUR FAVOURITE FOOD"} />
+        </Link>
       </div>
     </>
   );

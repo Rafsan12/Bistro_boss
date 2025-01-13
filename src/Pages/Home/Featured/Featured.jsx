@@ -1,4 +1,5 @@
 import FeaturedImg from "../../../assets/home/featured.jpg";
+import Button from "../../../components/Button/Button";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import "./Featured.css";
 
@@ -20,9 +21,7 @@ export default function Featured() {
             authentic flavors. Join us for a dining experience where freshness
             meets excellence.
           </p>
-          <button className="btn btn-outline border-0 border-b-4 mt-4">
-            Order Now
-          </button>
+          <Button name={"Order Now"} />
         </div>
       </div>
     </div>

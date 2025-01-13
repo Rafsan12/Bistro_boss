@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 export default function MenuItem({ item }) {
   const { name, price, image, recipe } = item;
   return (
