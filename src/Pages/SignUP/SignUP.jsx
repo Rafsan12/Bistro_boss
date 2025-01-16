@@ -59,7 +59,7 @@ export default function SignUP() {
                   <span className="label-text">FullName</span>
                 </label>
                 <input
-                  {...register("fullName")}
+                  {...register("fullName", { required: true })}
                   type="name"
                   placeholder="Enter Your Full Name"
                   name="fullName"
@@ -90,7 +90,18 @@ export default function SignUP() {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  {...register("password")}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Your Password Must be 6 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).+$/,
+                      message:
+                        "Password must include an uppercase letter, a number, and a special character",
+                    },
+                  })}
                   type="password"
                   placeholder="password"
                   name="password"
@@ -120,16 +131,10 @@ export default function SignUP() {
                   className="input input-bordered"
                   required
                 />
-                <button
-                  onClick={handleValidateCaptcha}
-                  className="btn btn-xs mt-4"
-                >
-                  Validate
-                </button>
               </div>
               <div className="form-control mt-6">
                 <input
-                  disabled={loginDisabled}
+                  onClick={handleValidateCaptcha}
                   type="submit"
                   value="Sign Up"
                   className="btn btn-primary"
