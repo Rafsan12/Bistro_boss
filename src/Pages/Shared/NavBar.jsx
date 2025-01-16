@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/Group 1.png";
 import ShopIcon from "../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
+import { AuthContext } from "../../context";
 
 export default function NavBar() {
+  const { user, logOut } = useContext(AuthContext);
   const NavLinks = (
     <>
       <li>
@@ -20,9 +23,6 @@ export default function NavBar() {
 
       <li>
         <NavLink to="/order/salad">Order Food</NavLink>
-      </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
       </li>
     </>
   );
@@ -63,7 +63,17 @@ export default function NavBar() {
         </div>
         <div className="navbar-end">
           <img className="w-12" src={ShopIcon} alt="" />
-          <button className="ml-4 mr-4">SIGN OUT</button>
+          {user ? (
+            <>
+              <button className="mr-4" onClick={() => logOut()}>
+                Log Out
+              </button>
+            </>
+          ) : (
+            <li className="mr-4">
+              <NavLink to="/login">Login</NavLink>
+            </li>
+          )}
           <div className="avatar w-10 ml-2">
             <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
               <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
