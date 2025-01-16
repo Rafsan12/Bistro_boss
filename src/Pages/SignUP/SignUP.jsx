@@ -6,9 +6,10 @@ import {
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
+import SignUpImg from "../../assets/others/authentication2.png";
 import { AuthContext } from "../../context";
 
-export default function Login() {
+export default function SignUP() {
   const captchaRef = useRef(null);
   const [loginDisabled, setLoginDisabled] = useState(true);
   const [error, setError] = useState(null);
@@ -17,15 +18,16 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signInUser } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   useEffect(() => {
-    loadCaptchaEnginge(8);
+    loadCaptchaEnginge(6);
   }, []);
 
-  const onSubmit = async (data) => {
-    const { email, password } = data;
+  const onFormSubmit = async (data) => {
+    const { email, password, fullName } = data;
+    console.log(data);
     try {
-      await signInUser(email, password);
+      await createUser(email, password, fullName);
     } catch (error) {
       console.log(error);
       setError(error.message);
@@ -44,18 +46,27 @@ export default function Login() {
   };
   return (
     <>
-      <div className="hero bg-base-200 min-h-screen">
+      <div className="bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center md:w-1/2 lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
+            <h1 className="text-5xl ml-24 font-bold">Sign Up Now!</h1>
+            <img src={SignUpImg} alt="" />
           </div>
-          <div className="card bg-base-100 md:w-1/2 max-w-sm  shadow-2xl">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          <div className="card  md:w-1/2">
+            <form onSubmit={handleSubmit(onFormSubmit)} className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">FullName</span>
+                </label>
+                <input
+                  {...register("fullName")}
+                  type="name"
+                  placeholder="Enter Your Full Name"
+                  name="fullName"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -109,27 +120,26 @@ export default function Login() {
                   className="input input-bordered"
                   required
                 />
-                {/* <button
+                <button
                   onClick={handleValidateCaptcha}
                   className="btn btn-xs mt-4"
                 >
                   Validate
-                </button> */}
+                </button>
               </div>
               <div className="form-control mt-6">
                 <input
-                  onClick={handleValidateCaptcha}
-                  // disabled={loginDisabled}
+                  disabled={loginDisabled}
                   type="submit"
-                  value="Login"
+                  value="Sign Up"
                   className="btn btn-primary"
                 />
               </div>
             </form>
             <p className="text-center">
-              New Here?
-              <Link to="/signup">
-                <span className="underline">Create a account</span>
+              Already Have a Account?
+              <Link to="/login">
+                <span className="underline">Go To Login</span>
               </Link>
             </p>
           </div>
