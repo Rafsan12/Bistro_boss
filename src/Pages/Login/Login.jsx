@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
@@ -13,6 +13,9 @@ export default function Login() {
   const captchaRef = useRef(null);
   const [loginDisabled, setLoginDisabled] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -27,6 +30,7 @@ export default function Login() {
     const { email, password } = data;
     try {
       await signInUser(email, password);
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
       setError(error.message);
