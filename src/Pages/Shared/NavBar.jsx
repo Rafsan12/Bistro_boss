@@ -63,7 +63,6 @@ export default function NavBar() {
         <img className="w-12" src={ShopIcon} alt="Shopping Cart" />
         {user ? (
           <>
-            <span className="ml-2">{user.fullName}</span>
             <button className="btn btn-sm ml-4" onClick={logOut}>
               Log Out
             </button>
@@ -75,6 +74,7 @@ export default function NavBar() {
             </li>
           </ul>
         )}
+        <span className="ml-2">{user?.displayName}</span>
         <div className="avatar w-10 ml-2">
           <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
             <img
