@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/Group 1.png";
 import { AuthContext } from "../../context";
+import useCart from "../../hooks/useCart";
 
 export default function NavBar() {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
   const NavLinks = (
     <>
       <li>
@@ -75,7 +77,7 @@ export default function NavBar() {
             />
           </svg>
 
-          <div className="badge badge-secondary">+0</div>
+          <div className="badge badge-secondary">+{cart.length}</div>
         </button>
         {user ? (
           <>

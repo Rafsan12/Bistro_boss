@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
+import useCart from "../../hooks/useCart";
 
 /* eslint-disable react/prop-types */
 export default function FoodCard({ item }) {
@@ -10,7 +11,8 @@ export default function FoodCard({ item }) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const handleAddToCart = async (food) => {
+  const [, refetch] = useCart();
+  const handleAddToCart = async () => {
     if (user && user.email) {
       const cartITem = {
         menuId: _id,
@@ -32,6 +34,7 @@ export default function FoodCard({ item }) {
           theme: "light",
           transition: Bounce,
         });
+        refetch();
       }
       const result = response.data;
 
@@ -55,7 +58,7 @@ export default function FoodCard({ item }) {
           <p>{recipe}</p>
           <div className="">
             <button
-              onClick={() => handleAddToCart(item)}
+              onClick={handleAddToCart}
               className="btn bg-slate-100 border-0 border-b-4 border-orange-500"
             >
               Add To Card
