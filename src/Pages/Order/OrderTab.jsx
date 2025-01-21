@@ -16,8 +16,6 @@ export default function OrderTab({ items }) {
   return (
     <>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={20}
         pagination={pagination}
         modules={[Pagination]}
         className="mySwiper"
