@@ -110,16 +110,10 @@ export default function Login() {
                   className="input input-bordered"
                   required
                 />
-                {/* <button
-                  onClick={handleValidateCaptcha}
-                  className="btn btn-xs mt-4"
-                >
-                  Validate
-                </button> */}
               </div>
               <div className="form-control mt-6">
                 <input
-                  onClick={handleValidateCaptcha}
+                  onBlur={handleValidateCaptcha}
                   // disabled={loginDisabled}
                   type="submit"
                   value="Login"
