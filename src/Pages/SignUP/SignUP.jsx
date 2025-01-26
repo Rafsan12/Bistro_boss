@@ -1,10 +1,14 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 import SignUpImg from "../../assets/others/authentication2.png";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { AuthContext } from "../../context";
+import useAxiosOpen from "../../hooks/useAxiosOpen";
 
 export default function SignUP() {
+  const axiosOpen = useAxiosOpen();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const {
@@ -21,8 +25,27 @@ export default function SignUP() {
     try {
       await createUser(email, password);
       await updateUser(fullName, photoURL);
-      navigate("/");
-      reset();
+      const userInfo = {
+        email,
+        fullName,
+      };
+      const response = await axiosOpen.post("/users", userInfo);
+      if (response.data.insertedId) {
+        console.log("user Add in the database");
+        reset();
+        toast.success("User Created Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
       setError(error.message);
@@ -119,6 +142,8 @@ export default function SignUP() {
                 />
               </div>
             </form>
+            <div className="divider">OR</div>
+            <SocialLogin />
             <p className="text-center">
               Already have an account?{" "}
               <Link to="/login" className="underline">

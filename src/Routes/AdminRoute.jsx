@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Navigate, useLocation } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
 
 export default function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
+  const [isAdmin, isAdminLoading] = useAdmin();
   const location = useLocation();
-  if (loading) {
+  if (loading || isAdminLoading) {
     return <span className="loading loading-ball loading-lg"></span>;
   }
-  if (user) {
+  if (user && isAdmin) {
     return children;
   }
   return (

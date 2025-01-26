@@ -7,12 +7,14 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import SignUpImg from "../../assets/others/authentication2.png";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { AuthContext } from "../../context";
 
 export default function Login() {
   const captchaRef = useRef(null);
   const [loginDisabled, setLoginDisabled] = useState(true);
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -121,6 +123,8 @@ export default function Login() {
                 />
               </div>
             </form>
+            <div className="divider">OR</div>
+            <SocialLogin />
             <p className="text-center">
               New Here?
               <Link to="/signup">
