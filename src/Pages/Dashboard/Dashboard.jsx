@@ -102,7 +102,7 @@ export default function Dashboard() {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="text-white" to="/dashboard/card">
+                <NavLink className="text-white" to="/dashboard/cart">
                   {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
