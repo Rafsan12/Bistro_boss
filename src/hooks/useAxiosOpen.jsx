@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosOpen = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://bistro-boss-restaurant-server-inky.vercel.app",
 });
 
 export default function useAxiosOpen() {

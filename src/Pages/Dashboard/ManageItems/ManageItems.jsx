@@ -1,16 +1,15 @@
-import { Link } from "react-router-dom";
+import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import { UseMenu } from "../../../hooks/UseMenu";
 import useAxios from "../../../hooks/useAxios";
-import useCart from "../../../hooks/useCart";
 
-export default function Cart() {
-  const [cart, refetch] = useCart();
+export default function ManageItems() {
+  const [menu, , refetch] = UseMenu();
   const axiosSecure = useAxios();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
-  const handleDelete = async (id) => {
-    const result = await Swal.fire({
+  const handleDeleteItem = (item) => {
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -18,46 +17,30 @@ export default function Cart() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        const response = await axiosSecure.delete(`/carts/${id}`);
-        if (response.data.deletedCount > 0) {
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await axiosSecure.delete(`/menu/${item._id}`);
+        console.log("API Response:", response);
+        const result = await response.data;
+        console.log(result);
+        if (result.deletedCount > 0) {
+          refetch();
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: `${item.name} has been deleted.`,
             icon: "success",
           });
-          refetch();
         }
-      } catch (error) {
-        console.error("Error deleting item:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "There was a problem deleting the item.",
-          icon: "error",
-        });
       }
-    }
+    });
   };
   return (
     <>
-      <SectionTitle subHeading={"My Cart"} heading={"WANNA ADD MORE?"} />
-      <div className="flex justify-evenly ">
-        <h1 className="text-3xl">Total orders: {cart.length}</h1>
-        <h1 className="text-3xl">Total Price: {totalPrice}</h1>
-        {cart.length ? (
-          <Link to={"/dashboard/payment"}>
-            <button className="btn btn-primary">Pay</button>
-          </Link>
-        ) : (
-          <button disabled className="btn btn-primary">
-            Pay
-          </button>
-        )}
-      </div>
+      <SectionTitle subHeading={"Hurry Up!"} heading={"MANAGE ALL ITEMS"} />
       <div className="overflow-x-auto mt-4">
+        <h1 className="text-center text-3xl mb-6 text-slate-400">
+          Total Menu Item:{menu.length}
+        </h1>
         <table className="table">
           {/* head */}
           <thead>
@@ -65,13 +48,14 @@ export default function Cart() {
               <th>#</th>
               <th>ITEM IMAGE</th>
               <th>ITEM NAME</th>
-              <th>PRICE</th>
+              <th>Price</th>
+              <th>Update</th>
               <th>Action</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {cart.map((item, i) => (
+            {menu.map((item, i) => (
               <tr key={item._id}>
                 <th>{i + 1}</th>
                 <td>
@@ -87,7 +71,15 @@ export default function Cart() {
                 <td>$ {item.price}</td>
                 <th>
                   <button
-                    onClick={() => handleDelete(item._id)}
+                    onClick={() => handleAdminMake(user)}
+                    className="btn btn-sm bg-orange-500"
+                  >
+                    <FaEdit className="text-white text-xl" />
+                  </button>
+                </th>
+                <th>
+                  <button
+                    onClick={() => handleDeleteItem(item)}
                     className="btn btn-ghost btn-xs"
                   >
                     <svg
