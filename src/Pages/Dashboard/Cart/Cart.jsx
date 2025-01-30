@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxios from "../../../hooks/useAxios";
@@ -47,7 +46,7 @@ export default function Cart() {
       <div className="flex justify-evenly ">
         <h1 className="text-3xl">Total orders: {cart.length}</h1>
         <h1 className="text-3xl">Total Price: {totalPrice}</h1>
-        {cart.length ? (
+        {/* {cart.length ? (
           <Link to={"/dashboard/payment"}>
             <button className="btn btn-primary">Pay</button>
           </Link>
@@ -55,7 +54,7 @@ export default function Cart() {
           <button disabled className="btn btn-primary">
             Pay
           </button>
-        )}
+        )} */}
       </div>
       <div className="overflow-x-auto mt-4">
         <table className="table">
